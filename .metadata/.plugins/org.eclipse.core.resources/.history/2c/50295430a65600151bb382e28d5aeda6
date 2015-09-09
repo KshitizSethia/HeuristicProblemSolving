@@ -1,0 +1,15 @@
+public class ExactChangeNumber {
+
+	private static final int NUM_DENOMINATIONS = 3;
+	private static final int PENCES_IN_POUND = 240;
+	private static final int INF = 10000;
+	
+	private static int[] getCosts() {
+		int[] result = new int[PENCES_IN_POUND-1];
+		for(int index=0;index<result.length;index++){
+			
+		}	
+		
+		return result;
+	}
+}

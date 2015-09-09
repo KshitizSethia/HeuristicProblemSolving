@@ -1,0 +1,29 @@
+public class ExactChangeNumber {
+
+	private static final int NUM_DENOMINATIONS = 3;
+	private static final int PENCES_IN_POUND = 240;
+	private static final int INF = 10000;//max can be if all denominations are 1
+	
+	/**
+	 * 
+	 * @return ignore index 0
+	 */
+	private static int[] getCosts() {
+		int[] results = new int[PENCES_IN_POUND];
+		for(int index=results.length-1;index>0;index--){
+			results[index]=INF;
+		}
+		
+		for(int index=results.length-1;index>0;index--){
+			if(results[index]==INF){
+				calculateResult(index, results);
+			}
+		}
+		
+		return results;
+	}
+	
+	private static void calculateResult(int number, int[] results){
+		
+	}
+}
