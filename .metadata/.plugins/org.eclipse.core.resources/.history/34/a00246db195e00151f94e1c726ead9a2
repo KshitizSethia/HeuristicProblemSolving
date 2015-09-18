@@ -1,0 +1,64 @@
+package exactChange;
+
+public class ExactChangeRunner extends Thread {
+
+	private ExactChangeModel model;
+	private int[] bestDenominations;
+	private int N;
+	private Object denominationUpdateLock;
+
+	ExactChangeRunner(ExactChangeModel model, int N) {
+		this.model = model;
+		this.N = N;
+		denominationUpdateLock = new Object;
+	}
+
+	public int[] getBestDenominations() {
+		synchronized (bestDenominations) {
+			return bestDenominations;
+		}
+	}
+
+	public void setBestDenominations(int[] bestDenominations) {
+		synchronized (bestDenominations) {
+			this.bestDenominations = bestDenominations;
+		}
+	}
+
+	@Override
+	public void run() {
+		setBestDenominations(model.getStartingDenominations());
+
+		// TODO: make configurable
+		optimizeTillConvergence(0.004f);
+	}
+
+	// optimize till gain is above threshold
+	private void optimizeTillConvergence(final float minDeltaToRun) {
+		ExactChangeCalculator calci = new ExactChangeCalculator();
+		calci.calculateCostsForDenominations(bestDenominations);
+		float bestCostTillNow = calci.getCostGivenN(N);
+		
+		
+		int[] newDenominations = takeStep();
+		calci.resetCosts();
+		calci.calculateCostsForDenominations(newDenominations);
+		float newCost = calci.getCostGivenN(N);
+		float delta = bestCostTillNow-newCost;
+		while(delta>minDeltaToRun){
+			bestCostTillNow = newCost;
+			setBestDenominations(newDenominations);
+			newDenominations = takeStep();
+			calci.resetCosts();
+			calci.calculateCostsForDenominations(newDenominations);
+			newCost = calci.getCostGivenN(N);
+			delta = bestCostTillNow - newCost;
+		}
+	}
+	
+	private int[] takeStep(){
+		int[] newDenom = bestDenominations.clone();
+		
+		return newDenom;
+	}
+}

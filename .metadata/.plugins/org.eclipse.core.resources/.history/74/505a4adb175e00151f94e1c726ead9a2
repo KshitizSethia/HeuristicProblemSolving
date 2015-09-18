@@ -1,0 +1,13 @@
+public class Helper {
+
+	private Helper() {
+		// prevent instantiation
+	}
+
+	// private static final int NUM_DENOMINATIONS = 3;
+	public static final int PENCES_IN_POUND = 240;
+	public static final int INF = 10000;// max can be if all denominations are
+										// 1
+	private static final int MULT_OF = 5;
+
+}

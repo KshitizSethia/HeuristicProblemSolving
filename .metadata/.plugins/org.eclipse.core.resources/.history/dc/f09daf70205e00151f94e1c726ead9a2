@@ -1,0 +1,56 @@
+package common;
+
+import exactChange.ExactChangeCalculator;
+
+public class SolutionOptimizer extends Thread {
+
+	private ParallelSolutionFinder model;
+
+	private int[] bestDenominations;
+	private int N;
+	private Object denominationUpdateLock;
+
+	SolutionOptimizer(ParallelSolutionFinder model, int N) {
+		this.model = model;
+		this.N = N;
+		denominationUpdateLock = new Object();
+	}
+
+	@Override
+	public void run() {
+		model.getStartingDenominations();
+
+		// TODO: make configurable
+		optimizeTillConvergence(0.004f);
+	}
+
+	// optimize till gain is above threshold
+	private void optimizeTillConvergence(final float minGainToRun) {
+
+		bestCostTillNow = ExactChangeCalculator.getCost(
+				bestDenominations, N);
+
+		while (true) {
+			int[] newDenominations = takeStep();
+			float newCost = ExactChangeCalculator.getCost(newDenominations, N);
+			float delta = bestCostTillNow-delta;
+			offerNewSolution(newCost,newDenominations)
+			
+			if(delta<minGainToRun){
+				
+			}
+			setBestDenominations(newDenominations);
+			newDenominations = takeStep();
+			calci.resetCosts();
+			calci.calculateCostsForDenominations(newDenominations);
+			newCost = calci.getCostGivenN(N);
+			delta = bestCostTillNow - newCost;
+		}
+	}
+
+	private int[] takeStep() {
+		int[] newDenom = bestDenominations.clone();
+
+		return newDenom;
+	}
+}

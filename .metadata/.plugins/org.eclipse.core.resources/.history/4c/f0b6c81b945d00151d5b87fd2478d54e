@@ -1,0 +1,14 @@
+
+public final class ExactChangeSolver {
+
+	ExactChangeSolver(){
+		
+	}
+	
+	public static void main(String[] args) {
+		ExactChangeModel solver = new ExactChangeModel();
+		
+		
+	}
+
+}

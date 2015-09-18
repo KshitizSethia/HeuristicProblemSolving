@@ -1,0 +1,18 @@
+package exactChange;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public final class ExactChangeModel {
+
+	ExactChangeModel() {
+	}
+
+	public static void main(String[] args) {
+		ExactChangeModel solver = new ExactChangeModel();
+		
+		
+		List<ExactChangeRunner> threads = new LinkedList()<ExactChangeRunner>();
+	}
+
+}

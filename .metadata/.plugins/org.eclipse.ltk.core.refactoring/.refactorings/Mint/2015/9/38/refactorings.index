@@ -1,0 +1,24 @@
+1442171468991	Move folder
+1442171601857	Move compilation units
+1442171650501	Move compilation units
+1442171654203	Delete element
+1442530551409	Rename type 'Runner'
+1442531258074	Rename method 'getCosts'
+1442531275844	Rename method 'getCost'
+1442532640780	Rename type 'ExactChangeSolver'
+1442532706380	Rename type 'ExactChangeNumber'
+1442532713909	Move compilation units
+1442533145454	Extract method 'resetCosts'
+1442536151182	Rename method 'optimize'
+1442586896609	Delete elements
+1442588394645	Rename local variable 'r'
+1442589226307	Move compilation units
+1442589586505	Rename method 'updateSolution'
+1442589731121	Rename local variable 'threadPool'
+1442590457603	Rename type 'ExactChangeModel'
+1442590463892	Move compilation unit
+1442590494223	Rename type 'ExactChangeRunner'
+1442590500103	Move compilation unit
+1442592402657	Rename local variable 'minDeltaToRun'
+1442595822971	Move compilation units
+1442595833949	Move compilation unit

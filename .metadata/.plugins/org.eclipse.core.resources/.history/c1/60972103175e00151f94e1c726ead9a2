@@ -1,0 +1,50 @@
+package exactChange;
+
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public final class ExactChangeModel {
+
+	private static final int numThreads = 3;
+
+	ExactChangeModel() {
+	}
+
+	public static void main(String[] args) {
+		int N = Integer.parseInt(args[0]);
+		ExactChangeModel solver = new ExactChangeModel();
+
+		ExecutorService threadPool = Executors.newFixedThreadPool(numThreads);
+
+		for (int threadNum = 0; threadNum < numThreads; threadNum++) {
+			ExactChangeRunner runner = new ExactChangeRunner(solver, N);
+			threadPool.execute(runner);
+		}
+		
+		Timer timer = new Timer();
+		TimerTask collectBestSolutionFromAllThreads = new SolutionCollector();
+		timer.schedule(collectBestSolutionFromAllThreads, time);
+	}
+	
+	public class SolutionCollector extends TimerTask{
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+
+	public int[] getStartingDenominations() {
+		Random random = new Random();
+		//generate multiples of 5
+		return new int[] { 1, (random.nextInt(48) + 1) * 5,
+				(random.nextInt(48) + 1) * 5, (random.nextInt(48) + 1) * 5,
+				(random.nextInt(48) + 1) * 5, (random.nextInt(48) + 1) * 5,
+				(random.nextInt(48) + 1) * 5 };
+	}
+}
