@@ -80,13 +80,13 @@ public final class CocaineContestant extends NoTippingPlayer {
 	}
 
 	private int decideDepth(GameState c) {
-		int result = 55;
+		int result = 1;
 		if (c.stage == Stage.addition) {
 			// Adding Stage
-			result = 55;
+			
 			// If count is less than 5 , crucial state of game go deep
-			if (c.count < 10) {
-				result = 55;
+			if (c.count < 5) {
+				result = 3;
 			}
 		} else if (c.stage == Stage.removal) {
 			// Removing Stage

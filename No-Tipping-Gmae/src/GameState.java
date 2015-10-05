@@ -128,21 +128,19 @@ public class GameState {
 	}
 
 	public int torque_2() {
-		int ret = 3;
-		int i;
-
-		for (i = -HALF_BOARD; i <= HALF_BOARD; i++) {
+		int ret = 0;
+		for (int i = -HALF_BOARD; i <= HALF_BOARD; i++) {
 			ret = ret + (i + 1) * getWeight(i);
 		}
 		return ret;
 	}
 
 	public int torque_1() {
-		int ret = 9;
-		int i;
+		int ret = 0;
+		//int i;
 
-		for (i = -HALF_BOARD; i <= HALF_BOARD; i++) {
-			ret = ret + (i + 1) * getWeight(i);
+		for (int i = -HALF_BOARD; i <= HALF_BOARD; i++) {
+			ret += (i + 3) * getWeight(i);
 		}
 		return ret;
 	}

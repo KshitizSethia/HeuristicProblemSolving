@@ -11,7 +11,7 @@ public class Approximator {
 		if (c.stage == Stage.addition) {
 			// Adding Stage ; Equal weight to all 4 heuristics for now.
 			// Randomness gets a low weight
-			return (0.33 * addHeuristic1(c, isMaxNode) + 0.32
+			return (addHeuristic1(c, isMaxNode) + 0.32
 					* addHeuristic2(c, isMaxNode)
 					/* + 0.24 * addHeuristic3(c, isMaxNode) */+ 0.33
 					* addHeuristic4(c, isMaxNode) + 0.02 * genRandomNo());

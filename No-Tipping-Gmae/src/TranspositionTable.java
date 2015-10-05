@@ -27,7 +27,7 @@ public class TranspositionTable {
 		cache = new HashMap<Integer, TableEntry>();
 	}
 	
-	public static TranspositionTable getTranspositionTableInstance() {
+	public static TranspositionTable getInstance() {
 		if(instance == null) {
 			instance = new TranspositionTable();
 		}
@@ -59,7 +59,7 @@ public class TranspositionTable {
 		}
 		
 		cache.remove(hash);
-		return t;
+		return null;
 	}
 	
 	/*
