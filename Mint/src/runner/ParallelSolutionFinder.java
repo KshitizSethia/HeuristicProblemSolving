@@ -2,20 +2,21 @@ package runner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import api.SolutionOptimizer;
+
 import common.Helper;
 import common.SolutionCollector;
-import common.SolutionOptimizer;
+import common.solutionOptimizer.StartsWithFivesStepsRandomly;
 
 public final class ParallelSolutionFinder {
 
-	private static final int NUM_THREADS = 1;
+	private static final int NUM_THREADS = 7;
 
 	private Object solutionUpdateLock;
-	private float bestCost;
+	private double bestCost;
 	private int[] bestDenominations;
 
 	ParallelSolutionFinder() {
@@ -23,38 +24,41 @@ public final class ParallelSolutionFinder {
 		solutionUpdateLock = new Object();
 	}
 
-	public void offerNewSolution(int[] denominations, float cost) {
+	public void offerNewSolution(int[] denominations, double cost) {
+
 		synchronized (solutionUpdateLock) {
 			if (cost < bestCost) {
+				/*
+				 * if (Helper.DEBUG_MODE) { System.out.println("accepted " +
+				 * Arrays.toString(denominations) + ", " + cost); }
+				 */
 				bestCost = cost;
-				bestDenominations = denominations;
+				bestDenominations = denominations.clone();
 			}
 		}
 	}
-	
-	public int[] getBestDenominations(){
+
+	public int[] getBestDenominations() {
 		synchronized (solutionUpdateLock) {
 			return bestDenominations.clone();
 		}
 	}
 
-	public static int[] getStartingDenominations() {
-		Random random = new Random();
-		// generate multiples of 5
-		return new int[] { 1, (random.nextInt(48) + 1) * 5,
-				(random.nextInt(48) + 1) * 5, (random.nextInt(48) + 1) * 5,
-				(random.nextInt(48) + 1) * 5, (random.nextInt(48) + 1) * 5,
-				(random.nextInt(48) + 1) * 5 };
-	}
-
 	public static void main(String[] args) {
-		int N = Integer.parseInt(args[0]);
+		double N = Double.parseDouble(args[0]);
+
+		/*
+		 * if (Helper.DEBUG_MODE) { System.out.println("Log for N=" + args[0]);
+		 * }
+		 */
+
 		ParallelSolutionFinder solver = new ParallelSolutionFinder();
 
 		List<SolutionOptimizer> runnerPool = new ArrayList<SolutionOptimizer>();
 
 		for (int threadNum = 0; threadNum < NUM_THREADS; threadNum++) {
-			SolutionOptimizer runner = new SolutionOptimizer(solver, N);
+			SolutionOptimizer runner = new StartsWithFivesStepsRandomly(solver,
+					N);
 			runnerPool.add(runner);
 			runner.start();
 		}

@@ -22,3 +22,16 @@
 1442592402657	Rename local variable 'minDeltaToRun'
 1442595822971	Move compilation units
 1442595833949	Move compilation unit
+1442597452633	Rename local variable 'delta'
+1442604686947	Rename method 'takeStep'
+1442605151906	Rename type 'SolutionOptimizer'
+1442605584589	Rename type 'RandomStepper'
+1442605602407	Rename method 'takeRandomStep'
+1442605843150	Rename type 'StartWithFivesAndStepRandomly'
+1442605897607	Move compilation unit
+1442610062515	Rename type 'StartWithFivesStepsRandomlyThenWithOneStepSize'
+1442610090120	Rename type 'StartsWithFivesAndStepsRandomly'
+1442610977536	Rename local variable 'gainHappenedInRound'
+1442612399680	Rename local variable 'bestCostYet'
+1442619693720	Move file
+1442631632878	Rename package 'exactChange'

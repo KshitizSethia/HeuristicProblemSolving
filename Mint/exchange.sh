@@ -1,0 +1,1 @@
+java -jar jars/exchange.jar $1

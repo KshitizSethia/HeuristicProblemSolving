@@ -1,3 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="conditionHistory">
+		<item value="4" key="conditionHistoryEntryCount"/>
+		<item value="index==6" key="conditionHistoryEntry_0"/>
+		<item value="index==150" key="conditionHistoryEntry_1"/>
+		<item value="index==90" key="conditionHistoryEntry_2"/>
+		<item value="denomination!=1" key="conditionHistoryEntry_3"/>
+	</section>
+	<section name="org.eclipse.jdt.internal.debug.ui.ExpressionInformationControlCreator$ExpressionInformationControl">
+		<item value="801" key="SashWeightTree"/>
+		<item value="199" key="SashWeightDetails"/>
+		<item value="1020" key="WIDTH"/>
+		<item value="320" key="HEIGHT"/>
+	</section>
 </section>

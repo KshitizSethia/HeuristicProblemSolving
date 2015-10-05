@@ -1,0 +1,1 @@
+java -jar jars/salesman.jar $2 $1

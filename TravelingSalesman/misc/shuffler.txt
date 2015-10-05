@@ -1,0 +1,6 @@
+import sys
+import random
+
+lines = raw_input().readLines();
+for line in random.shuffle(lines):
+	print line

@@ -1,0 +1,70 @@
+<project default="compile">
+	<presetdef name="javac">
+		<javac includeantruntime="false" />
+	</presetdef>
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="jars" />
+	</target>
+	<target name="compile">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="on" />
+	</target>
+	<target name="buildExact">
+		<mkdir dir="jars" />
+		<replaceregexp file="src/common/Helper.java" match="USE_EXACT = false;" replace="USE_EXACT = true;" />
+		<replaceregexp file="src/common/Helper.java" match="DEBUG_MODE = true" replace="DEBUG_MODE = false" />
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="on" />
+		<jar destfile="jars/exact.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.ParallelSolutionFinder" />
+			</manifest>
+		</jar>
+		<replaceregexp file="src/common/Helper.java" match="DEBUG_MODE = false" replace="DEBUG_MODE = true" />
+	</target>
+	<target name="buildExchange">
+		<mkdir dir="jars" />
+		<replaceregexp file="src/common/Helper.java" match="USE_EXACT = true;" replace="USE_EXACT = false;" />
+		<!--<replaceregexp file="src/common/Helper.java" match="DEBUG_MODE = true" replace="DEBUG_MODE = false" />-->
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="on" />
+		<jar destfile="jars/exchange.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.ParallelSolutionFinder" />
+			</manifest>
+		</jar>
+		<replaceregexp file="src/common/Helper.java" match="USE_EXACT = false;" replace="USE_EXACT = true;" />
+		<replaceregexp file="src/common/Helper.java" match="DEBUG_MODE = false" replace="DEBUG_MODE = true" />
+	</target>
+	<target name="BruteForceRunner" depends="compile">
+		<mkdir dir="jars" />
+		<jar destfile="jars/bruteForceRunner.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.BruteForceRunner" />
+			</manifest>
+		</jar>
+	</target>
+	<target name="buildGetCost">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="on" />
+		<jar destfile="jars/getCost.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.GetCost" />
+			</manifest>
+		</jar>
+	</target>
+	<target name="permit">
+		<!-- rwx permission to owner/user-->
+		<chmod perm="700">
+			<fileset dir=".">
+				<include name="**/*" />
+			</fileset>
+		</chmod>
+		<!-- rwx permission to user, rx permission to other, group-->
+		<chmod perm="755">
+			<filelist dir="jars" files="exact.jar,exchange.jar,getCost.jar" />
+			<filelist dir="." files="exact.sh,exchange.sh,getCost.sh" />
+		</chmod>
+	</target>
+</project>

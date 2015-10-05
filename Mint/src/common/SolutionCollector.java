@@ -1,10 +1,10 @@
 package common;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.TimerTask;
 
 import runner.ParallelSolutionFinder;
+import api.SolutionOptimizer;
 
 public class SolutionCollector extends TimerTask {
 
@@ -27,7 +27,16 @@ public class SolutionCollector extends TimerTask {
 			runner.interrupt();
 		}
 
-		System.out.println(Arrays.toString(model.getBestDenominations()));
+		int[] bestDenominations = model.getBestDenominations();
+		for (int index = 0; index < bestDenominations.length - 1; index++) {
+			System.out.print(bestDenominations[index] + " ");
+		}
+		System.out.println(bestDenominations[bestDenominations.length - 1]);
+		/*
+		 * if (Helper.DEBUG_MODE) {
+		 * System.out.println(StartsWithFivesStepsRandomly.getCount()); }
+		 */
+		System.exit(1);
 	}
 
 }

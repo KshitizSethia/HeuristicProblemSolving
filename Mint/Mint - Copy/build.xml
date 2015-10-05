@@ -1,0 +1,40 @@
+<project default="compile">
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="jars" />
+	</target>
+	<target name="compile">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="on" />
+	</target>
+	<target name="buildExact" depends="compile">
+		<mkdir dir="jars" />
+		<replaceregexp file="common.Helper.java" match="DEBUG_MODE = true" replace="DEBUG_MODE = false" />
+		<jar destfile="jars/exact.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.ParallelSolutionFinder" />
+			</manifest>
+		</jar>
+		<replaceregexp file="common.Helper.java" match="DEBUG_MODE = false" replace="DEBUG_MODE = true" />
+	</target>
+	<target name="buildExchange" depends="compile">
+		<mkdir dir="jars" />
+		<replaceregexp file="common.Helper.java" match="USE_EXACT = true;" replace="USE_EXACT = false;" />
+		<replaceregexp file="common.Helper.java" match="DEBUG_MODE = true" replace="DEBUG_MODE = false" />
+		<jar destfile="jars/exchange.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.ParallelSolutionFinder" />
+			</manifest>
+		</jar>
+		<replaceregexp file="common.Helper.java" match="USE_EXACT = false;" replace="USE_EXACT = true;" />
+		<replaceregexp file="common.Helper.java" match="DEBUG_MODE = false" replace="DEBUG_MODE = true" />
+	</target>
+	<target name="BruteForceRunner" depends="compile">
+		<mkdir dir="jars" />
+		<jar destfile="jars/bruteForceRunner.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.BruteForceRunner" />
+			</manifest>
+		</jar>
+	</target>
+</project>

@@ -1,0 +1,43 @@
+<project default="buildJar">
+	<presetdef name="javac">
+		<javac includeantruntime="false" />
+	</presetdef>
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="jars" />
+	</target>
+	<target name="buildJar" depends="clean">
+		<mkdir dir="jars" />
+		<replaceregexp file="src/common/Helper.java" match="DEBUG_MODE = true" replace="DEBUG_MODE = false" />
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="on" />
+		<jar destfile="jars/salesman.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.ParallelSolutionFinder" />
+			</manifest>
+		</jar>
+		<replaceregexp file="src/common/Helper.java" match="DEBUG_MODE = false" replace="DEBUG_MODE = true" />
+	</target>
+	<target name="buildGetCost">
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="on" />
+		<jar destfile="jars/getCost.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="runner.GetCost" />
+			</manifest>
+		</jar>
+	</target>
+	<target name="permit">
+		<!-- rwx permission to owner/user-->
+		<chmod perm="700">
+			<fileset dir=".">
+				<include name="**/*" />
+			</fileset>
+		</chmod>
+		<!-- rwx permission to user, rx permission to other, group-->
+		<chmod perm="755">
+			<filelist dir="jars" files="salesman.jar" />
+			<filelist dir="." files="runit.sh" />
+		</chmod>
+	</target>
+</project>
