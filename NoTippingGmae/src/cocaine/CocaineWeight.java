@@ -1,3 +1,5 @@
+package cocaine;
+
 public class CocaineWeight {
 	public final int weight;
 	public final int position;
@@ -36,10 +38,9 @@ public class CocaineWeight {
 			return false;
 		return true;
 	}
-	
+
 	@Override
-	public String toString(){
-		return weight +" @ " +position + " by " + player;
+	public String toString() {
+		return position + ": " + weight + " by " + player;
 	}
-	
 }

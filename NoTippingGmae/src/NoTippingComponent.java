@@ -5,36 +5,17 @@
 // Tyler Neylon, 2002
 //
 
-import java.awt.Choice;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.font.FontRenderContext;
-import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.lang.*;
+import java.awt.*;
+import java.awt.image.*;
+import java.awt.event.*;
+import java.awt.font.*;
+import java.util.*;
 import java.net.Socket;
-import java.util.Stack;
-import java.util.StringTokenizer;
-import java.util.Vector;
+import java.io.*;
 
-class Weight2 {
-    public Weight2(int w, int whose, int place, int p) {
+class Weight {
+    public Weight(int w, int whose, int place, int p) {
         this.w = w;
         this.whose = whose;
         this.place = place;
@@ -77,8 +58,9 @@ public class NoTippingComponent
     private HelpFrame help_frame;
     private int most_recent_position = 0;
     private int most_recent_weight = 0;
+    private boolean valid_move = true;
 
-    private Rectangle computeRectangle(Weight2 w) {
+    private Rectangle computeRectangle(Weight w) {
         int h = w.w*2 + 17;
         if (w.place == 0) {
             if (w.whose == 0) {
@@ -99,7 +81,6 @@ public class NoTippingComponent
     public void actionPerformed(ActionEvent e) {
         System.out.println("actionPerformed(" + e.getActionCommand() + ")");
         if (e.getActionCommand().equals("Connect")) {
-            System.out.println("hi");
             System.out.println(red);
             System.out.println(blue);
             if (red != null && blue != null) {
@@ -119,9 +100,9 @@ public class NoTippingComponent
             if (phase == 1) {
                 num_on_grass -- ;
             }
-            if (moves.size() == 13) phase = 0;
+            if (moves.size() == 14) phase = 0;
             whose_turn = 1 - whose_turn;
-            Weight2 w = (Weight2)weights.get(m.w_index);
+            Weight w = (Weight)weights.get(m.w_index);
             if (m.position == -1) {
                 w.place = 0;
             } else {
@@ -133,7 +114,7 @@ public class NoTippingComponent
                 game_over = false;
                 int i, n = weights.size() - 1; // less one to avoid the invible center of gravity
                 for (i=0; i<n; i++) {
-                    w = (Weight2)weights.get(i);
+                    w = (Weight)weights.get(i);
                     w.do_draw = true;
                 }
             }
@@ -168,13 +149,13 @@ public class NoTippingComponent
             int n = weights.size() - 1;
             // check that the destination is free
             for (i=0; i<n; i++) {
-                Weight2 w = (Weight2)weights.get(i);
+                Weight w = (Weight)weights.get(i);
                 if (w.position == p && w.place == 1) {
                     return;
                 }
             }
             for (i=0; i<n; i++) {
-                Weight2 w = (Weight2)weights.get(i);
+                Weight w = (Weight)weights.get(i);
                 if (wt == w.w && w.whose == whose_turn && w.place == 0) {
                     w.place = 1;
                     w.position = p;
@@ -193,7 +174,7 @@ public class NoTippingComponent
             // find the moving weight
             int i, n = weights.size() - 1;
             for (i=0; i<n; i++) {
-                Weight2 w = (Weight2)weights.get(i);
+                Weight w = (Weight)weights.get(i);
                 if (w.position == p && w.place == 1) {
                     w.place = 2;
                     moves.push(new Move(i, whose_turn, w.position));
@@ -275,13 +256,13 @@ public class NoTippingComponent
 
         int i;
         for (i=1; i<=15; i++) {
-            Weight2 w = new Weight2(i, 0, 0, 0);
+            Weight w = new Weight(i, 0, 0, 0);
             weights.add(w);
-            w = new Weight2(i, 1, 0, 0);
+            w = new Weight(i, 1, 0, 0);
             weights.add(w);
         }
-        weights.add(new Weight2(3, 2, 1, -4));
-        Weight2 w = new Weight2(3, 2, 1, 0);
+        weights.add(new Weight(3, 2, 1, -4));
+        Weight w = new Weight(3, 2, 1, 0);
         w.do_draw = false;
         weights.add(w);
 
@@ -309,7 +290,7 @@ public class NoTippingComponent
         left_torque = 0;
         right_torque = 0;
         for (i=0; i<n; i++) {
-            Weight2 w = (Weight2)weights.get(i);
+            Weight w = (Weight)weights.get(i);
             if (w.place == 1) {
                 left_torque -= (w.position - (-3)) * w.w;
                 right_torque -= (w.position - (-1)) * w.w;
@@ -319,7 +300,7 @@ public class NoTippingComponent
             if (!game_over) {
                 who_lost = 1 - whose_turn;
                 for (i=0; i<n; i++) {
-                    Weight2 w = (Weight2)weights.get(i);
+                    Weight w = (Weight)weights.get(i);
                     if (w.place == 0) {
                         w.do_draw = false;
                     }
@@ -379,7 +360,10 @@ public class NoTippingComponent
         s_height = (int)(f.getStringBounds(right_s, frc).getHeight());
 //        g.drawString(right_s, screen_x(-1)-s_width/2, horizon+s_height+3);
 
-        if (game_over) {
+        System.out.println("Judgement day");
+        System.out.println(this.valid_move);
+        if (game_over || !this.valid_move) {
+            game_over = true;
             Font font = new Font("SansSerif", Font.BOLD, 30);
             Font old_f = g.getFont();
             g.setFont(font);
@@ -434,7 +418,7 @@ public class NoTippingComponent
         n = weights.size();
         for (i=0; i<n; i++) {
             Color c;
-            Weight2 w = (Weight2)weights.get(i);
+            Weight w = (Weight)weights.get(i);
             switch(w.whose) {
                 case 0:
                     c = new Color(200, 0, 0);
@@ -456,7 +440,7 @@ public class NoTippingComponent
         }
 
         if (weight_selected >= 0) {
-            Weight2 w = (Weight2)weights.get(weight_selected);
+            Weight w = (Weight)weights.get(weight_selected);
             Color c;
             switch(w.whose) {
                 case 0:
@@ -521,7 +505,7 @@ public class NoTippingComponent
 
         if (weight_selected < 0) return;
 
-        Weight2 w = (Weight2)weights.get(weight_selected);
+        Weight w = (Weight)weights.get(weight_selected);
         int h = w.w*2+17;
         selected_x = x-6;
         selected_y = y-h/2;
@@ -548,7 +532,7 @@ public class NoTippingComponent
         int n = weights.size();
         int i;
         for (i=0; i<n; i++) {
-            Weight2 w = (Weight2)weights.get(i);
+            Weight w = (Weight)weights.get(i);
             Rectangle r = computeRectangle(w);
             if (r.contains(e.getPoint())) {
                 if (w.whose != whose_turn && phase == 0) continue;
@@ -570,7 +554,7 @@ public class NoTippingComponent
         System.out.println("mouseReleased(MouseEvent)");
 
         if (weight_selected < 0) return;
-        Weight2 w = (Weight2)weights.get(weight_selected);
+        Weight w = (Weight)weights.get(weight_selected);
         w.do_draw = true;
         Point p = e.getPoint();
         int top = horizon-ss_height-f_height-40;
@@ -604,7 +588,7 @@ public class NoTippingComponent
                 // check that there isn't already a weight here
                 int j, n = weights.size() - 1;
                 for (j=0; j<n; j++) {
-                    Weight2 w2 = (Weight2)weights.get(j);
+                    Weight w2 = (Weight)weights.get(j);
                     if ((w2.place == 1) && (w2.position == i)) {
                         weight_selected = -1;
                         update(getGraphics());
@@ -612,7 +596,6 @@ public class NoTippingComponent
                         return;
                     }
                 }
-
                 // drop the weight here
                 w.place = 1;
                 w.position = i;
@@ -638,7 +621,7 @@ public class NoTippingComponent
     private BufferedReader redIn = null;
     private BufferedReader blueIn = null;
     private long redTime = 0, blueTime = 0;
-    private final long timeAllowed = 5 * 60 * 1000;// 5 minutes
+    private final long timeAllowed = 2 * 60 * 1000;// 5 minutes
 
     /**
      * Whenever a choice is made in the choice box, a new socket is opened and the game is
@@ -679,6 +662,7 @@ public class NoTippingComponent
                 }
                 openRed(playerName);
             } catch (Exception ev) {
+                System.out.println("you done fuck up");
                 System.out.println(ev.getMessage());
             }
         }
@@ -709,6 +693,9 @@ public class NoTippingComponent
         blueTime = 0;
         long moveTime;
         while (true) {// Keep playing until one of them loses
+            System.out.println(redTime);
+            System.out.println(blueTime);
+            System.out.println(whose_turn);
             long t1 = sendState();
             long t2 = readMove();
             moveTime = t2 - t1;
@@ -725,6 +712,7 @@ public class NoTippingComponent
                 game_over = true;
             }
             if (game_over) {
+                update(getGraphics());
                 closeRed();
                 closeBlue();
                 break;
@@ -737,13 +725,15 @@ public class NoTippingComponent
      * @return
      */
     private long sendState() {
-        Weight2 w;
-        if (phase == 0)
+        Weight w;
+        if (phase == 0) {
             send("ADDING");
-        else
+        }
+        else {
             send("REMOVING");
+        }
 //        for (int i=0; i<weights.size(); i++) {
-//            w = (Weight2)weights.get(i);
+//            w = (Weight)weights.get(i);
 //            if (w.do_draw)
 //                send(this.most_recent_position + " " + this.most_recent_weight);
 //        }
@@ -765,9 +755,54 @@ public class NoTippingComponent
         weight = Integer.parseInt(st.nextToken());
         this.most_recent_position = position;
         this.most_recent_weight = weight;
-        Weight2 w = getWeight(weight, (phase==1)?position:0);
-        if (w == null)// No weight exists
-            return Integer.MAX_VALUE;// Make this player lose
+        Weight w = getWeight(weight, (phase==1)?position:0);
+        // check if moves are correct
+        this.valid_move = true;
+
+        // check if move is correct
+        // if you choose a non-existent weight
+        if (w == null) {
+            this.valid_move = false;
+            this.who_lost = whose_turn;
+            this.game_over = true;
+            return 0;
+        }
+        // if there's already a weight there on the board
+        for (int i = 0; i < weights.size(); i ++) {
+            Weight w1 = (Weight) weights.get(i);
+            if (position == w1.position && w1.place == 1 &&
+                    (w1.position != 0 && w1.place != 1 && w1.whose == 2)) {
+                this.valid_move = false;
+                this.who_lost = whose_turn;
+            }
+        }
+        // during remove phase, if you're player 2 and you violate player 2
+        // remove policy
+        if (phase != 0 && whose_turn == 1) {
+            boolean more_blue = false;
+            boolean choose_blue = false;
+            for (int i = 0; i < weights.size(); i ++) {
+                Weight w1 = (Weight) weights.get(i);
+                // blue and on board
+                if (w1.whose == 1 && w1.place == 1) {
+                    more_blue = true;
+                    if (w1.position == position) {
+                        choose_blue = true;
+                    }
+                } else if(w1.whose == 2 && (w1.position != 0 && w1.whose == 2)) {
+                    // the green piece is fine too
+                    if (w1.position == position) {
+                        choose_blue = true;
+                    }
+                }
+            }
+            // if you don't remove blue but there's more blue on board
+            if (!choose_blue && more_blue) {
+                this.valid_move = false;
+                this.who_lost = whose_turn;
+            }
+        }
+
         Rectangle source = computeRectangle(w);
         // Generate a mouse click on the weight
         mousePressed(new MouseEvent(this, MouseEvent.MOUSE_PRESSED,
@@ -811,7 +846,7 @@ public class NoTippingComponent
                 break;
         }
         while (true) {// Move across above the drop off point
-            Thread.sleep(1);
+            Thread.sleep(10);
             if (!Player.noDelay()) {
                 if (Math.abs(cx - x2) > 3)
                     cx += vx * 30;
@@ -826,7 +861,7 @@ public class NoTippingComponent
                 break;
         }
         while (true) {// Drop it down
-            Thread.sleep(1);
+            Thread.sleep(10);
             if (!Player.noDelay()) {
                 if (Math.abs(cy - y2) > 3)
                     cy += vy * 30;
@@ -844,10 +879,10 @@ public class NoTippingComponent
                 (int)System.currentTimeMillis(), 16, (int)cx, (int)cy, 1, false, MouseEvent.BUTTON1));
     }
 
-    private Weight2 getWeight(int weight, int position) {
-        Weight2 w;
+    private Weight getWeight(int weight, int position) {
+        Weight w;
         for (int i=0; i<weights.size(); i++) {
-            w = (Weight2)weights.get(i);
+            w = (Weight)weights.get(i);
             if ((phase != 0 && w.w == weight && w.position == position && w.place == 1 && w.do_draw) || (phase == 0 && whose_turn == w.whose && w.w == weight && w.place == 0 && w.do_draw)) {
                 return w;
             }

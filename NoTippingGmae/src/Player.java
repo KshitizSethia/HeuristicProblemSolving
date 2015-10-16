@@ -17,7 +17,7 @@ public class Player {
     // A list of the player ports corresponding to the names above
     private static int[] playerPorts;
     private static boolean initialized = false;
-    private static String hostname = "localhost";//"sparky.cs.nyu.edu";
+    private static String hostname = "sparky.cs.nyu.edu";
     private static boolean noDelay = false;
 
     public static void initialize (String fileName) {

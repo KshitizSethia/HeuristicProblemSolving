@@ -1,0 +1,13 @@
+NoTippingComponent() v1.4
+HelpFrame()
+getPreferredSize()
+setBounds(11, 68, 500, 300)
+setBounds(11, 68, 500, 300)
+setBounds(11, 68, 500, 300)
+paint(Graphics)
+Judgement day
+true
+you done fuck up
+Connection timed out: connect
+you done fuck up
+Connection timed out: connect

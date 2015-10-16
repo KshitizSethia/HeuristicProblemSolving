@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="printf" key="selection"/>
-		<item value="true" key="casesensitive"/>
+		<item value="// if" key="selection"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="false" key="wholeword"/>
+		<item value="true" key="wholeword"/>
 		<list key="findhistory">
-			<item value="printf"/>
-			<item value="Weight"/>
-			<item value="board"/>
-			<item value="System.out.println("/>
-			<item value="assert"/>
-			<item value="g_local"/>
-			<item value="//cout"/>
-			<item value="Integer.parseInt"/>
+			<item value="// if"/>
+			<item value="// If"/>
+			<item value="//if"/>
+			<item value="cw"/>
+			<item value="stage == 1"/>
+			<item value="c.stage"/>
+			<item value="c.stage == 1"/>
+			<item value="isValidMoveForPlayer2"/>
 		</list>
 		<list key="replacehistory">
 			<item value="Weight2"/>

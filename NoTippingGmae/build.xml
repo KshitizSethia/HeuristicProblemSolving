@@ -1,0 +1,19 @@
+<project default="buildJar">
+	<presetdef name="javac">
+		<javac includeantruntime="false" />
+	</presetdef>
+	<target name="clean">
+		<delete dir="bin" />
+		<delete dir="jars" />
+	</target>
+	<target name="buildJar" depends="clean">
+		<mkdir dir="jars" />
+		<mkdir dir="bin" />
+		<javac srcdir="src" destdir="bin" debug="off" />
+		<jar destfile="jars/app.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-Class" value="CocaineContestant" />
+			</manifest>
+		</jar>
+	</target>
+</project>

@@ -97,14 +97,17 @@
 	</section>
 	<section name="FatJarPackageWizard">
 		<item value="C:\Cloud\workspace\HeuristicProblemSolving" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
-		<item value="ParallelSolutionFinder_tsp - TravelingSalesman" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="TravelingSalesman\salesman.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="CocaineContestant (2) - NoTippingGmae_old" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
+		<item value="NoTippingGmae\old.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="2" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="NoTippingGmae\old.jar"/>
+			<item value="NoTippingGmae/new.jar"/>
 			<item value="TravelingSalesman/salesman.jar"/>
 		</list>
 		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">
+			<item value="C:\Cloud\workspace\HeuristicProblemSolving.xml"/>
 			<item value=".xml"/>
 		</list>
 	</section>

@@ -1,9 +1,11 @@
+package cocaine;
+
 import java.util.Random;
 
 public class Approximator {
 
 	public static double approx(GameState c, boolean isMaxNode) {
-		if (c.isTipping()) {
+		if (c.isTipping_old()) {
 			// If this is a tipping case
 			return !isMaxNode ? 1.0 : -1.0;
 		}
@@ -30,11 +32,39 @@ public class Approximator {
 		// return 0.0;
 	}
 
-	// Heuristic 1
-	// (Self Feasible Moves - Opponent Feasible Moves)/ Total No of Moves
-	// Feasible move means where tipping doesn't happen
+	public static double approx_new(GameState c, boolean isMaxNode) {
+		double absoluteCenterOfMass = Math.abs(getCenterOfMassShiftedByPivots(c));
 
-	// This is time consuming.
+		double result;
+		if (absoluteCenterOfMass <= 1) {
+			result = -1.999 * absoluteCenterOfMass + 1;
+		} else {
+			result = -1;
+		}
+		System.out.format("Converted center of mass %f to value %f.\n",
+				absoluteCenterOfMass, result);
+		return result;
+	}
+
+	private static double getCenterOfMassShiftedByPivots(GameState c) {
+		double massByPosition = 0;//GameState.POS_INITIAL_WEIGHT*GameState.WGT_INITIAL_WEIGHT;
+		double mass = 0;//GameState.WGT_INITIAL_WEIGHT;
+		for (CocaineWeight weight : c.board) {
+			if (weight == null) {
+				continue;
+			}
+			massByPosition += weight.weight * (weight.position+2);
+			mass += weight.weight;
+		}
+		final double centerOfMass = massByPosition / mass;
+		return centerOfMass;
+	}
+
+	/**
+	 * Heuristic 1 (Self Feasible Moves - Opponent Feasible Moves)/ Total No of
+	 * Moves Feasible move means where tipping doesn't happen This is time
+	 * consuming.
+	 */
 	static double addHeuristic1(GameState c, boolean isMaxNode) {
 		// Value returned will be absolute. If its max node, this config is good
 		// then value will be positive. If its min node,
@@ -64,7 +94,7 @@ public class Approximator {
 					if (c.getWeight(j) == 0) {
 						// Place it and see if you tip
 						c.makeMove(i, j, PlayerName.none);
-						if (!c.isTipping()) {
+						if (!c.isTipping_old()) {
 							self_feasible_moves++;
 						}
 						// Now remove the weight
@@ -80,7 +110,7 @@ public class Approximator {
 					// Place the weight and see if you tip
 					if (c.getWeight(j) == 0) {
 						c.makeMove(i, j, PlayerName.none);
-						if (!c.isTipping()) {
+						if (!c.isTipping_old()) {
 							opponent_feasible_moves++;
 						}
 						// Now remove the weight
@@ -131,9 +161,10 @@ public class Approximator {
 	 * addHeuristic3(GameState c, int max) { int total_board_weight = 0; int
 	 * curWeight = 0; int sum_of_abs_diff = 0; int i;
 	 * 
-	 * for (i = -GameState.HALF_BOARD; i <= GameState.HALF_BOARD; i = i + 1) { curWeight = config_board(c, i); if
-	 * (curWeight > 0) { //There is a weight total_board_weight += curWeight;
-	 * sum_of_abs_diff += (abs(curWeight - ideal_board_config[i + GameState.HALF_BOARD])); } }
+	 * for (i = -GameState.HALF_BOARD; i <= GameState.HALF_BOARD; i = i + 1) {
+	 * curWeight = config_board(c, i); if (curWeight > 0) { //There is a weight
+	 * total_board_weight += curWeight; sum_of_abs_diff += (abs(curWeight -
+	 * ideal_board_config[i + GameState.HALF_BOARD])); } }
 	 * 
 	 * if (total_board_weight == 0) { return 0.0; } else if (max == 1) { return
 	 * ((double) sum_of_abs_diff / (double) total_board_weight); } else { return
@@ -166,13 +197,13 @@ public class Approximator {
 			if (curWeight != 0) {
 				total_moves++;
 				// There is a weight at this position. Try Removing it
-				CocaineWeight w = c.removeMove(i + GameState.HALF_BOARD);
+				CocaineWeight w = c.removeMove(i);
 				// Check if the board tipped
-				if (c.isTipping() == false) {
+				if (c.isTipping_old() == false) {
 					feasible_remove_moves++;
 				}
 				// Place the weight back
-				c.makeMove(curWeight, i + GameState.HALF_BOARD, w.player);
+				c.makeMove(curWeight, i, w.player);
 			}
 		}
 		if (total_moves == 0) {
@@ -197,10 +228,11 @@ public class Approximator {
 	 * max) { int total_ideal_board_weight = 0; int curWeight = 0; int
 	 * sum_of_abs_diff = 0; int i;
 	 * 
-	 * for (i = -GameState.HALF_BOARD; i <= GameState.HALF_BOARD; i = i + 1) { curWeight = config_board(c, i); if
-	 * (curWeight != 0) { //There is a weight total_ideal_board_weight +=
-	 * ideal_board_config[i + GameState.HALF_BOARD]; sum_of_abs_diff += (abs(curWeight -
-	 * ideal_board_config[i + GameState.HALF_BOARD])); } }
+	 * for (i = -GameState.HALF_BOARD; i <= GameState.HALF_BOARD; i = i + 1) {
+	 * curWeight = config_board(c, i); if (curWeight != 0) { //There is a weight
+	 * total_ideal_board_weight += ideal_board_config[i + GameState.HALF_BOARD];
+	 * sum_of_abs_diff += (abs(curWeight - ideal_board_config[i +
+	 * GameState.HALF_BOARD])); } }
 	 * 
 	 * if (total_ideal_board_weight == 0) { return 0.0; } else if (max == 1) {
 	 * return (double) sum_of_abs_diff / (double) total_ideal_board_weight; }

@@ -1,3 +1,4 @@
+package cocaine;
 
 public enum PlayerName {
 	Player1,

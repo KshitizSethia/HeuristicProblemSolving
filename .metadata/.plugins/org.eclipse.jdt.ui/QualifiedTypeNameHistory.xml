@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.ObjectInputStream.GetField"/>
-<fullyQualifiedTypeName name="api.SolutionOptimizer"/>
-<fullyQualifiedTypeName name="common.solutionOptimizer.StartsWithFivesAndStepsRandomly"/>
 <fullyQualifiedTypeName name="common.solutionOptimizer.StartsWithFivesStepsRandomlyThenWithOneStepSize"/>
 <fullyQualifiedTypeName name="exactChange.ExactChangeCalculator"/>
 <fullyQualifiedTypeName name="java.text.DateFormat"/>
@@ -60,4 +57,7 @@
 <fullyQualifiedTypeName name="Stage"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="GameState"/>
+<fullyQualifiedTypeName name="cocaine.PlayerName"/>
+<fullyQualifiedTypeName name="cocaine.GameState"/>
+<fullyQualifiedTypeName name="cocaine.CocaineWeight"/>
 </qualifiedTypeNameHistroy>

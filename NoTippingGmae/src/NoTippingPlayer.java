@@ -36,9 +36,7 @@ public abstract class NoTippingPlayer {
         try {
             while ((command = in.readLine())!= null) {
                 if (command.equals("STATE END")) {
-                	String response =process(state.toString());
-                	System.out.println(response);
-                    out.println(response);
+                    out.println(process(state.toString()));
                     state.delete(0, state.length());
                     continue;
                 }

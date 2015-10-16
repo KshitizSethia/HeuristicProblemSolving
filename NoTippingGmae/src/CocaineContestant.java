@@ -1,4 +1,11 @@
+import java.util.ArrayList;
 import java.util.Random;
+
+import cocaine.Approximator;
+import cocaine.CocaineWeight;
+import cocaine.GameState;
+import cocaine.PlayerName;
+import cocaine.Stage;
 
 public final class CocaineContestant extends NoTippingPlayer {
 	public static final int INT_MAX = Integer.MAX_VALUE;
@@ -35,7 +42,9 @@ public final class CocaineContestant extends NoTippingPlayer {
 		default:
 			stage = Stage.addition;
 		}
+
 		state.stage = stage;
+
 		int position = Integer.parseInt(commands[1]);
 		int weight = Integer.parseInt(commands[2]);
 
@@ -57,35 +66,33 @@ public final class CocaineContestant extends NoTippingPlayer {
 			}
 		}
 
-		state.setDepth(decideDepth(state));
+		state.setDepth(decideDepth(state)); // TODO change this
+		// state.setDepth();
 
 		String move = prune(state, Double.NEGATIVE_INFINITY,
 				Double.POSITIVE_INFINITY);
 		String[] moveParts = move.split("\\s+");
-		String returnValue;
 		if (stage == Stage.addition) {
 			state.makeMove(Integer.parseInt(moveParts[1]),
 					Integer.parseInt(moveParts[0]), player);
 			if (state.count == GameState.MAX_WEIGHT * 2 + 1) {
-				returnValue = moveParts[0] + " " + moveParts[1];
+				return moveParts[0] + " " + moveParts[1];
 			} else {
-				returnValue = moveParts[0] + " " + moveParts[1];
+				return moveParts[0] + " " + moveParts[1];
 			}
 		} else {
 			state.removeMove(Integer.parseInt(moveParts[0]));
-			returnValue = moveParts[0] + " " + moveParts[1];
+			return moveParts[0] + " " + moveParts[1];
 		}
-
-		return returnValue;
 	}
 
 	private int decideDepth(GameState c) {
-		int result = 1;
+/*		int result = 3;
 		if (c.stage == Stage.addition) {
 			// Adding Stage
-			
+
 			// If count is less than 5 , crucial state of game go deep
-			if (c.count < 5) {
+			if (c.count > 20) {
 				result = 3;
 			}
 		} else if (c.stage == Stage.removal) {
@@ -116,11 +123,22 @@ public final class CocaineContestant extends NoTippingPlayer {
 			}
 		}
 
+		return result;*/
+		int result = 1;
+		if(c.stage==Stage.addition){
+			if(c.my_weights.size()<7){
+				result=2;
+			}
+		}else{
+			if(c.my_weights.size()>7){
+				result=4;
+			}
+		}
 		return result;
 	}
 
 	public PlayerName getOtherPlayer() {
-		if (this.player == PlayerName.Player1) {
+		if (player == PlayerName.Player1) {
 			return PlayerName.Player2;
 		}
 		return PlayerName.Player1;
@@ -140,7 +158,7 @@ public final class CocaineContestant extends NoTippingPlayer {
 			for (int weight = 1; weight <= GameState.MAX_WEIGHT; weight++) {
 				// Check if you have this weight
 				if (c.IHaveWeight(weight)) {
-					for (int position = -GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
+					for (int position = -1 * GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
 						// Try this board position
 						if (c.boardFreeAt(position)) {
 							next = (GameState) c.clone();
@@ -189,19 +207,62 @@ public final class CocaineContestant extends NoTippingPlayer {
 
 		} else if (c.stage == Stage.removal) {
 
-			// Removing Stage
+			ArrayList<CocaineWeight> list = new ArrayList<>();
 			for (int position = -1 * GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
-				if (c.getWeight(position) > 0) {
+				CocaineWeight cw = c.board[position + GameState.HALF_BOARD];
+				if (cw != null && cw.player.equals(PlayerName.Player2)) {
+					list.add(cw);
+				}
+			}
+			// Removing Stage
+			if (this.player == PlayerName.Player1 || list.isEmpty()) {
+				for (int position = -1 * GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
+					// boolean isValidMoveForPlayer2 = c.my_weights.size() ==
+					// GameState.MAX_WEIGHT
+					// || c.getPlayerAt(position) == PlayerName.Player2;
+					if (c.getWeight(position) > 0) {
+						// && (player == PlayerName.Player1 ||
+						// isValidMoveForPlayer2)) {
+
+						// There exists a weight at this position that this
+						// player
+						// can move
+						next = (GameState) c.clone();
+						next.removeMove(position);
+						if (!next.isTipping()) {
+							// Not tipping ; Compute a score for your min childs
+							score = prunemin(next, 1, alpha, beta);
+							if (score > alpha) {
+								alpha = score;
+								chosen_weight = c.getWeight(position);
+								chosen_position = position;
+							}
+							if (alpha == 1.0) {
+								// printf("%d,%d\n", weight, board);//todo
+								// uncomment
+								// this
+								return getReturnString(chosen_position,
+										chosen_weight, alpha);
+							}
+						}
+					}
+				}
+			} else {
+				for (CocaineWeight cw : list) {
+					// CocaineWeight cw = c.board[position +
+					// GameState.HALF_BOARD];
+
+					// if (c.getWeight(position) > 0) {
 					// There exist a weight at this position
 					next = (GameState) c.clone();
-					next.removeMove(position);
+					next.removeMove(cw.position);
 					if (!next.isTipping()) {
 						// Not tipping ; Compute a score for your min childs
 						score = prunemin(next, 1, alpha, beta);
 						if (score > alpha) {
 							alpha = score;
-							chosen_weight = c.getWeight(position);
-							chosen_position = position;
+							chosen_weight = c.getWeight(cw.position);
+							chosen_position = cw.position;
 						}
 						if (alpha == 1.0) {
 							// printf("%d,%d\n", weight, board);//todo uncomment
@@ -210,6 +271,7 @@ public final class CocaineContestant extends NoTippingPlayer {
 									chosen_weight, alpha);
 						}
 					}
+					// }
 				}
 			}
 
@@ -230,11 +292,15 @@ public final class CocaineContestant extends NoTippingPlayer {
 		} else {
 			throw new IllegalStateException();
 			// return "";
+			// return getReturnString(board, weight, 0);
+
 		}
 
-		if (chosen_position > GameState.HALF_BOARD || chosen_position < -GameState.HALF_BOARD) {
+		if (chosen_position > GameState.HALF_BOARD
+				|| chosen_position < -GameState.HALF_BOARD) {
 			throw new IllegalStateException();
 		}
+
 		return getReturnString(chosen_position, chosen_weight, alpha);
 	}
 
@@ -257,10 +323,13 @@ public final class CocaineContestant extends NoTippingPlayer {
 
 					// Try this weight at all positions
 					for (int position = -GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
-						if (c.getWeight(position) == 0) {
+						if (c.getWeight(position) == 0) { // TODO potential
+															// problem
 							// There is no weight at this position
 							next = (GameState) c.clone();
-							next.makeMove(weight, position, player);
+							next.makeMove(weight, position, player); // TODO
+																		// Check
+																		// this
 							if (!next.isTipping()) {
 								p = 1; // Some Progress
 
@@ -302,28 +371,65 @@ public final class CocaineContestant extends NoTippingPlayer {
 
 		} else if (c.stage == Stage.removal) {
 			// Removing Stage
-			p = 0;
-			for (int position = -GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
-				if (c.getWeight(position) > 0) {
-					// There exist a weight at this position
-					next = (GameState) c.clone();
-					next.removeMove(position);
-					if (!next.isTipping()) {
-						// Not tipping ; Compute a score for your min childs
-						score = prunemin(next, depth + 1, alpha, beta);
-						if (score > alpha) {
-							alpha = score;
-						}
-
-						if (alpha >= beta) {
-							return beta;
-						} else if (alpha == 1.0) {
-							return alpha;
-						}
-
-					}
+			ArrayList<CocaineWeight> list = new ArrayList<>();
+			for (int position = -1 * GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
+				CocaineWeight cw = c.board[position + GameState.HALF_BOARD];
+				if (cw !=null && cw.player.equals(PlayerName.Player2)) {
+					list.add(cw);
 				}
 			}
+			p = 0;
+			//if (player.equals(PlayerName.Player1) || list.isEmpty()) {
+				for (int position = -GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
+					// boolean isValidMoveForPlayer2 = c.my_weights.size() ==
+					// GameState.MAX_WEIGHT
+					// || c.getPlayerAt(position) == PlayerName.Player2;
+					if (c.getWeight(position) > 0) {
+						// && (player == PlayerName.Player1 ||
+						// isValidMoveForPlayer2)) {
+						// There exist a weight at this position that this
+						// player
+						// can remove
+						next = (GameState) c.clone();
+						next.removeMove(position);
+						if (!next.isTipping()) {
+							// Not tipping ; Compute a score for your min childs
+							score = prunemin(next, depth + 1, alpha, beta);
+							if (score > alpha) {
+								alpha = score;
+							}
+
+							if (alpha >= beta) {
+								return beta;
+							} else if (alpha == 1.0) {
+								return alpha;
+							}
+						}
+					}
+				}
+			/*} else if (player.equals(PlayerName.Player2) && !list.isEmpty()) {
+				for (CocaineWeight cw : list) {
+					if (c.getWeight(cw.position) > 0) {
+						// There exist a weight at this position
+						next = (GameState) c.clone();
+						next.removeMove(cw.position);
+						if (!next.isTipping()) {
+							// Not tipping ; Compute a score for your min childs
+							score = prunemin(next, depth + 1, alpha, beta);
+							if (score > alpha) {
+								alpha = score;
+							}
+
+							if (alpha >= beta) {
+								return beta;
+							} else if (alpha == 1.0) {
+								return alpha;
+							}
+
+						}
+					}
+				}
+			}*/
 
 		} else {
 			// Game Ended
@@ -355,7 +461,6 @@ public final class CocaineContestant extends NoTippingPlayer {
 			p = 0;
 			for (int weight = 1; weight <= GameState.MAX_WEIGHT; weight = weight + 1) {
 				if (c.IHaveWeight(weight)) {
-
 					// Try this weight at all positions
 					for (int position = -GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
 						if (c.getWeight(position) == 0) {
@@ -365,19 +470,9 @@ public final class CocaineContestant extends NoTippingPlayer {
 							if (!next.isTipping()) {
 								p = 1; // Some Progress
 
-								score = prunemax(c, depth + 1, alpha, beta); // Get
-																				// the
-																				// scores
-																				// from
-																				// all
-																				// your
-																				// min
-																				// childrens
-																				// and
-																				// take
-																				// the
-																				// max
-																				// one
+								// Get the scores from all your min childrens
+								// and take the max one
+								score = prunemax(c, depth + 1, alpha, beta);
 
 								if (score < beta) {
 									// Better score
@@ -412,9 +507,19 @@ public final class CocaineContestant extends NoTippingPlayer {
 
 		} else if (c.stage == Stage.removal) {
 			// Removing Stage
+			ArrayList<CocaineWeight> list = new ArrayList<>();
+			for (int position = -1 * GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
+				CocaineWeight cw = c.board[position + GameState.HALF_BOARD];
+				if (cw != null && cw.player.equals(PlayerName.Player2)) {
+					list.add(cw);
+				}
+			}
 			p = 0;
-			for (int position = -GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
-				if (c.getWeight(position) > 0) {
+			//if (player.equals(PlayerName.Player1) || list.isEmpty()) {
+				for (int position = -GameState.HALF_BOARD; position <= GameState.HALF_BOARD; position++) {
+					 if (c.getWeight(position) > 0) {// todo are we sure here
+					// that
+					// player2 check is not needed?
 					// There exist a weight at this position
 					next = (GameState) c.clone();
 					next.removeMove(position);// config_remove(&next, j);
@@ -430,10 +535,31 @@ public final class CocaineContestant extends NoTippingPlayer {
 						} else if (beta == -1.0) {
 							return beta;
 						}
+					}
+					}
+				}
+			/*} else if (player.equals(PlayerName.Player2) && !list.isEmpty()) {
+				for (CocaineWeight cw : list) {
+					// if (c.getWeight(cw.position) > 0) {
+					// There exist a weight at this position
+					next = (GameState) c.clone();
+					next.removeMove(cw.position);// config_remove(&next, j);
+					if (!next.isTipping()) {
+						// Not tipping ; Compute a score for your min childs
+						score = prunemax(next, depth + 1, alpha, beta);
+						if (score < beta) {
+							beta = score;
+						}
+
+						if (alpha >= beta) {
+							return alpha;
+						} else if (beta == -1.0) {
+							return beta;
+						}
 
 					}
 				}
-			}
+			}*/
 
 		} else {
 			// Game Ended
@@ -450,6 +576,9 @@ public final class CocaineContestant extends NoTippingPlayer {
 	}
 
 	public static void main(String[] args) {
-		new CocaineContestant();
+		// new CocaineContestant(Integer.parseInt(args[0]));
+		System.out.println("Starting Cocaine contestant");
+		new CocaineContestant(8014);
+
 	}
 }

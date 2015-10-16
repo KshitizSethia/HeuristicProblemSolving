@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,23 +10,12 @@ import java.util.StringTokenizer;
  */
 public class AIContestant extends NoTippingPlayer{
     private Random strategy;
-    protected int player;
+    private int player;
     private List<Integer> weights;
     private List<Weight> weights_on_board;
     private int[] board;
     private boolean firstRemove;
 
-    public class Weight {
-        public int weight;
-        public int position;
-        public int player;
-        public Weight(int weight, int position, int player) {
-            this.weight = weight;
-            this.position = position;
-            this.player = player;
-        }
-    }
-    
     AIContestant(int port) {
         super(port);
     }
@@ -43,7 +34,7 @@ public class AIContestant extends NoTippingPlayer{
             weights_on_board = new ArrayList<Weight>();
             // put the original 3 kg block on board
             weights_on_board.add(new Weight(3, -4, 1));
-            board = new int[51];
+            board = new int[50];
             board[-4+25] = 3;
             firstRemove = false;
         }
@@ -51,8 +42,11 @@ public class AIContestant extends NoTippingPlayer{
 
         // get the command, and opponent's position and weight last round.
         command = tk.nextToken();
+        System.out.println(command);
         int position = Integer.parseInt(tk.nextToken());
         int weight = Integer.parseInt(tk.nextToken());
+        System.out.println(position);
+        System.out.println(weight);
 
         // in the beginning of game, whoever gets 0, 0 for position and weight is
         // player 1
@@ -94,7 +88,7 @@ public class AIContestant extends NoTippingPlayer{
     public Weight makeAddMove(List<Integer> weights, int[] board, List<Weight> weights_on_board) {
         int index = strategy.nextInt(weights.size());
         int candidate = weights.get(index);
-        for (int pos = -25; pos <= 25; pos ++) {
+        for (int pos = -25; pos < 25; pos ++) {
             // see if position is taken
             if (board[pos+25] == 0) {
                 if (validAddMove(candidate, pos, weights_on_board)) {
@@ -188,16 +182,27 @@ public class AIContestant extends NoTippingPlayer{
     private boolean verifyGameNotOver(List<Weight> weights_on_board) {
         int left_torque = 0;
         int right_torque = 0;
-        for (Weight cocaineWeight: weights_on_board) {
-            left_torque -= (cocaineWeight.position - (-3)) * cocaineWeight.weight;
-            right_torque -= (cocaineWeight.position - (-1)) * cocaineWeight.weight;
+        for (Weight weight: weights_on_board) {
+            left_torque -= (weight.position - (-3)) * weight.weight;
+            right_torque -= (weight.position - (-1)) * weight.weight;
         }
         boolean gameOver = (left_torque > 0 || right_torque < 0);
         return !gameOver;
     }
 
     public static void main(String[] args) throws Exception {
-        new AIContestant(8001);//Integer.parseInt(args[0]));
+        new AIContestant(Integer.parseInt(args[0]));
+    }
+
+    public class Weight {
+        public int weight;
+        public int position;
+        public int player;
+        public Weight(int weight, int position, int player) {
+            this.weight = weight;
+            this.position = position;
+            this.player = player;
+        }
     }
 
 }
