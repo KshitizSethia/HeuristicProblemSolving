@@ -16,7 +16,6 @@ public class Patient {
   }
 
   public TimeWindow getTimeWindow() {
-    // FIXME put better estimate
     return new TimeWindow(0, ttl);
   }
 

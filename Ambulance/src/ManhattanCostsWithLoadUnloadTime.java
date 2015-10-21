@@ -31,31 +31,14 @@ public class ManhattanCostsWithLoadUnloadTime
       double departureTime, Driver driver, Vehicle vehicle) {
     double result = standardManhattan.getTransportTime(from, to, departureTime,
         driver, vehicle) + LOAD_UNLOAD_TIME_FOR_EVERY_LOCATION;
-    // verifyManhattans("Time", from, to, result);
     return result;
   }
-
-  /*
-   * private static final Logger loger =
-   * Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-   *
-   *
-   * private void verifyManhattans(String type, Location from, Location to,
-   * double result) { String key = String.format("(%d,%d) to (%d,%d)", (int)
-   * from.getCoordinate().getX(), (int) from.getCoordinate().getY(), (int)
-   * to.getCoordinate().getX(), (int) to.getCoordinate().getY()); if
-   * (type.equals("Time")) { if (times.containsKey(key)) { assert (result ==
-   * times.get(key)); } else { times.put(key, result); } } else { if
-   * (distances.containsKey(key)) { assert (result == distances.get(key)); }
-   * else { distances.put(key, result); } } }
-   */
 
   @Override
   public double getBackwardTransportTime(Location from, Location to,
       double arrivalTime, Driver driver, Vehicle vehicle) {
     double result = standardManhattan.getBackwardTransportTime(from, to,
         arrivalTime, driver, vehicle) + LOAD_UNLOAD_TIME_FOR_EVERY_LOCATION;
-    // verifyManhattans("Time", to, from, result);
     return result;
   }
 
@@ -64,7 +47,6 @@ public class ManhattanCostsWithLoadUnloadTime
       double departureTime, Driver driver, Vehicle vehicle) {
     double result = standardManhattan.getTransportCost(from, to, departureTime,
         driver, vehicle) + LOAD_UNLOAD_TIME_FOR_EVERY_LOCATION;
-    // verifyManhattans("Distance", from, to, result);
     return result;
   }
 
@@ -73,7 +55,6 @@ public class ManhattanCostsWithLoadUnloadTime
       double arrivalTime, Driver driver, Vehicle vehicle) {
     double result = standardManhattan.getBackwardTransportCost(from, to,
         arrivalTime, driver, vehicle) + LOAD_UNLOAD_TIME_FOR_EVERY_LOCATION;
-    // verifyManhattans("Distance", to, from, result);
     return result;
   }
 

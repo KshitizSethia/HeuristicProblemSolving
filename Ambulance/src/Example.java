@@ -54,12 +54,6 @@ public class Example {
     VehicleRoutingProblemSolution bestSolution = Solutions.bestOf(solutions);
 
     // output the solution to console
-    /*
-     * System.out.println("Distances: \n" +
-     * ManhattanCostsWithLoadUnloadTime.distances.toString());
-     * System.out.println( "Times: \n" +
-     * ManhattanCostsWithLoadUnloadTime.times.toString());
-     */
     //SolutionPrinter.print(problem, bestSolution, Print.VERBOSE);
 
     // output in required format
@@ -125,9 +119,7 @@ public class Example {
   }
 
   private static VehicleRoutingProblem makeVRProblem(InitialState state) {
-    // todo verify: make distances manhattan
     // FIXME make ambulances deposit patients at any hospital
-    // todo verify: add time delays for picking up and depositing patients
 
     // make vehicle routing problem builder
     VehicleRoutingProblem.Builder vrpBuilder =

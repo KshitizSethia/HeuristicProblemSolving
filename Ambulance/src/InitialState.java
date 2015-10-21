@@ -151,9 +151,6 @@ public class InitialState {
           clusterCenters[clusterIndex][1],
           initialAmbulanceCount.get(clusterIndex)));
 
-      // todo here we are assuming that ambulance are not being distributed
-      // equally, might need to rectify that
-
       String ambulances =
           Arrays
               .toString(
