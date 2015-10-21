@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="Ambulance">
+	<property environment="env" />
+	<property name="jsprit-core.location" value="../jsprit-master/jsprit-core" />
+	<property name="jsprit-analysis.location" value="../jsprit-master/jsprit-analysis" />
+	<property name="jsprit-instances.location" value="../jsprit-master/jsprit-instances" />
+	<property name="jsprit-examples.location" value="../jsprit-master/jsprit-examples" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.8" />
+	<property name="source" value="1.8" />
+	<path id="Maven Dependencies.libraryclasspath">
+		<!--<pathelement location="../../../../jsprit-core" />-->
+		<pathelement location="jars/repository/org/jfree/jfreechart/1.0.19/jfreechart-1.0.19.jar" />
+		<pathelement location="jars/repository/org/jfree/jcommon/1.0.23/jcommon-1.0.23.jar" />
+		<pathelement location="jars/repository/org/apache/commons/commons-math/2.2/commons-math-2.2.jar" />
+		<pathelement location="jars/repository/commons-configuration/commons-configuration/1.9/commons-configuration-1.9.jar" />
+		<pathelement location="jars/repository/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" />
+		<pathelement location="jars/repository/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar" />
+		<pathelement location="jars/repository/xerces/xercesImpl/2.11.0/xercesImpl-2.11.0.jar" />
+		<pathelement location="jars/repository/xml-apis/xml-apis/1.4.01/xml-apis-1.4.01.jar" />
+		<pathelement location="jars/repository/org/apache/commons/commons-math3/3.4/commons-math3-3.4.jar" />
+		<pathelement location="jars/repository/org/graphstream/gs-core/1.3/gs-core-1.3.jar" />
+		<pathelement location="jars/repository/org/graphstream/pherd/1.0/pherd-1.0.jar" />
+		<pathelement location="jars/repository/org/graphstream/mbox2/1.0/mbox2-1.0.jar" />
+		<pathelement location="jars/repository/org/graphstream/gs-ui/1.3/gs-ui-1.3.jar" />
+		<pathelement location="jars/repository/org/graphstream/gs-algo/1.3/gs-algo-1.3.jar" />
+		<pathelement location="jars/repository/org/scala-lang/scala-library/2.10.1/scala-library-2.10.1.jar" />
+		<pathelement location="jars/repository/junit/junit/4.10/junit-4.10.jar" />
+		<pathelement location="jars/repository/org/hamcrest/hamcrest-core/1.1/hamcrest-core-1.1.jar" />
+		<pathelement location="jars/repository/org/mockito/mockito-all/1.9.5/mockito-all-1.9.5.jar" />
+		<pathelement location="jars/repository/org/apache/logging/log4j/log4j-api/2.0/log4j-api-2.0.jar" />
+		<pathelement location="jars/repository/org/apache/logging/log4j/log4j-core/2.0/log4j-core-2.0.jar" />
+	</path>
+	<path id="jsprit-analysis.classpath">
+		<pathelement location="${jsprit-analysis.location}/target/classes" />
+		<!--<pathelement location="${jsprit-analysis.location}/target/test-classes" />-->
+		<path refid="Maven Dependencies.libraryclasspath" />
+	</path>
+	<path id="jsprit-core.classpath">
+		<pathelement location="${jsprit-core.location}/target/classes" />
+		<!--<pathelement location="${jsprit-core.location}/target/test-classes" />-->
+		<path refid="Maven Dependencies.libraryclasspath" />
+	</path>
+	<path id="jsprit-examples.classpath">
+		<pathelement location="${jsprit-examples.location}/target/classes" />
+		<!--<pathelement location="${jsprit-examples.location}/target/test-classes" />-->
+		<path refid="Maven Dependencies.libraryclasspath" />
+	</path>
+	<path id="jsprit-instances.classpath">
+		<pathelement location="${jsprit-instances.location}/target/classes" />
+		<!--<pathelement location="${jsprit-instances.location}/target/test-classes" />-->
+		<path refid="Maven Dependencies.libraryclasspath" />
+	</path>
+	<path id="Ambulance.classpath">
+		<pathelement location="bin" />
+		<pathelement location="jars/ekmeans-0.4.jar" />
+		<path refid="jsprit-analysis.classpath" />
+		<path refid="jsprit-core.classpath" />
+		<path refid="jsprit-examples.classpath" />
+		<path refid="jsprit-instances.classpath" />
+		<pathelement location="jars/guava-18.0.jar" />
+	</path>
+	<target name="init">
+		<mkdir dir="bin" />
+		<copy includeemptydirs="false" todir="bin">
+			<fileset dir="src">
+				<exclude name="**/*.launch" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+	<target depends="clean" name="cleanall">
+		<ant antfile="build.xml" dir="${jsprit-core.location}" inheritAll="false" target="clean" />
+		<ant antfile="build.xml" dir="${jsprit-analysis.location}" inheritAll="false" target="clean" />
+		<ant antfile="build.xml" dir="${jsprit-instances.location}" inheritAll="false" target="clean" />
+		<ant antfile="build.xml" dir="${jsprit-examples.location}" inheritAll="false" target="clean" />
+	</target>
+	<target depends="build-subprojects,build-project" name="build" />
+	<target name="build-subprojects">
+		<ant antfile="build.xml" dir="${jsprit-core.location}" inheritAll="false" target="build-project" />
+		<ant antfile="build.xml" dir="${jsprit-analysis.location}" inheritAll="false" target="build-project" />
+		<ant antfile="build.xml" dir="${jsprit-instances.location}" inheritAll="false" target="build-project" />
+		<ant antfile="build.xml" dir="${jsprit-examples.location}" inheritAll="false" target="build-project" />
+	</target>
+	<target depends="init" name="build-project">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+			<src path="src" />
+			<classpath refid="Ambulance.classpath" />
+		</javac>
+	</target>
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+	<target name="Example">
+		<java classname="Example" failonerror="true" fork="yes">
+			<arg line="sample_data" />
+			<classpath refid="Ambulance.classpath" />
+		</java>
+	</target>
+	<manifestclasspath property="neededClasspath" jarfile="runner.jar">
+		<classpath refid="Ambulance.classpath"></classpath>
+	</manifestclasspath>
+	<target name="jar">
+		<jar destfile="runner.jar" basedir="bin">
+			<manifest>
+				<attribute name="Main-class" value="Example"/>
+				<attribute name="Class-Path" value="${neededClasspath}"/>
+			</manifest>
+		</jar>
+	</target>
+</project>

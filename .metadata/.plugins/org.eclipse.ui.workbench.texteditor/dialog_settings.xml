@@ -2,35 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="// if" key="selection"/>
+		<item value="jars/" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
-		<item value="true" key="wholeword"/>
+		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="// if"/>
-			<item value="// If"/>
-			<item value="//if"/>
-			<item value="cw"/>
-			<item value="stage == 1"/>
-			<item value="c.stage"/>
-			<item value="c.stage == 1"/>
-			<item value="isValidMoveForPlayer2"/>
+			<item value="../../../../../Users/Kshitiz/.m2/"/>
+			<item value="Ambulance.classpath"/>
+			<item value="Example"/>
+			<item value="../../../../Users/Kshitiz/.m2/"/>
+			<item value="ekmeans"/>
+			<item value="build.xml"/>
+			<item value="src\test"/>
+			<item value="ECLIPSE_HOME"/>
 		</list>
 		<list key="replacehistory">
+			<item value="jars/"/>
+			<item value="jars"/>
+			<item value="FIRSTCOUNT"/>
 			<item value="Weight2"/>
 			<item value="cout"/>
 			<item value="Double.parseDouble"/>
 			<item value="src/common/"/>
 			<item value="common/"/>
-			<item value="47"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="353" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="513" key="DIALOG_HEIGHT"/>
-		<item value="1325" key="DIALOG_X_ORIGIN"/>
-		<item value="343" key="DIALOG_Y_ORIGIN"/>
+		<item value="1716" key="DIALOG_X_ORIGIN"/>
+		<item value="250" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <typeInfoHistroy>
-<typeInfo handle="=TravelingSalesman/C:\/Program Files\/Java\/jdk1.8.0_40\/jre\/lib\/rt.jar&lt;java.lang(Thread.class[Thread" modifiers="33" timestamp="1427678240492"/>
-<typeInfo handle="=TravelingSalesman/src&lt;lkh{LKH_Thread.java[LKH_Thread" modifiers="1" timestamp="1443551160599"/>
-<typeInfo handle="=TravelingSalesman/src&lt;lkh{LKH_algo.java[LKH_algo" modifiers="1" timestamp="1443552004568"/>
+<typeInfo handle="=jsprit-core/src\/main\/java&lt;jsprit.core.util{CrowFlyCosts.java[CrowFlyCosts" modifiers="1" timestamp="1445041107702"/>
+<typeInfo handle="=jsprit-core/src\/main\/java&lt;jsprit.core.problem.job{Job.java[Job" modifiers="513" timestamp="1445041106333"/>
+<typeInfo handle="=jsprit-analysis/src\/main\/java&lt;jsprit.analysis.toolbox{AlgorithmEventsViewer.java[AlgorithmEventsViewer" modifiers="1" timestamp="1445041101339"/>
+<typeInfo handle="=jsprit-core/src\/main\/java&lt;jsprit.core.problem{VehicleRoutingProblem.java[VehicleRoutingProblem[FleetSize" modifiers="16393" timestamp="1445376837801"/>
+<typeInfo handle="=jsprit-core/src\/main\/java&lt;jsprit.core.reporting{SolutionPrinter.java[SolutionPrinter" modifiers="1" timestamp="1445041107571"/>
+<typeInfo handle="=jsprit-core/src\/main\/java&lt;jsprit.core.algorithm.io{VehicleRoutingAlgorithms.java[VehicleRoutingAlgorithms" modifiers="1" timestamp="1445041102172"/>
+<typeInfo handle="=jsprit-core/src\/main\/java&lt;jsprit.core.algorithm{VehicleRoutingAlgorithm.java[VehicleRoutingAlgorithm[Counter" modifiers="10" timestamp="1445377057135"/>
 </typeInfoHistroy>

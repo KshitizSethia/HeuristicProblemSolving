@@ -1,0 +1,284 @@
+Problem as given in input:
+
+Hospitals with ambulance IDs
+Hospital:0|91,76,3|0, 1, 2
+Hospital:1|19,83,5|3, 4, 5, 6, 7
+Hospital:2|19,28,6|8, 9, 10, 11, 12, 13
+Hospital:3|56,71,3|14, 15, 16
+Hospital:4|72,19,5|17, 18, 19, 20, 21
+
+Patient locations
+patient_0 at (38,77), dies at 21
+patient_1 at (17,23), dies at 29
+patient_2 at (17,20), dies at 102
+patient_3 at (15,7), dies at 78
+patient_4 at (84,26), dies at 95
+patient_5 at (64,30), dies at 74
+patient_6 at (25,100), dies at 58
+patient_7 at (68,57), dies at 52
+patient_8 at (39,77), dies at 58
+patient_9 at (58,95), dies at 108
+patient_10 at (56,26), dies at 80
+patient_11 at (75,1), dies at 72
+patient_12 at (1,89), dies at 53
+patient_13 at (66,47), dies at 58
+patient_14 at (18,83), dies at 95
+patient_15 at (5,92), dies at 50
+patient_16 at (71,3), dies at 53
+patient_17 at (18,1), dies at 71
+patient_18 at (64,75), dies at 47
+patient_19 at (62,50), dies at 112
+patient_20 at (87,50), dies at 101
+patient_21 at (99,100), dies at 24
+patient_22 at (22,86), dies at 80
+patient_23 at (58,15), dies at 87
+patient_24 at (82,67), dies at 56
+patient_25 at (65,92), dies at 27
+patient_26 at (17,100), dies at 25
+patient_27 at (35,57), dies at 39
+patient_28 at (69,100), dies at 59
+patient_29 at (99,93), dies at 37
+patient_30 at (86,9), dies at 116
+patient_31 at (99,83), dies at 76
+patient_32 at (69,72), dies at 37
+patient_33 at (24,65), dies at 56
+patient_34 at (95,99), dies at 99
+patient_35 at (3,69), dies at 102
+patient_36 at (100,62), dies at 106
+patient_37 at (2,26), dies at 87
+patient_38 at (38,41), dies at 69
+patient_39 at (74,11), dies at 96
+patient_40 at (54,93), dies at 60
+patient_41 at (29,42), dies at 67
+patient_42 at (30,50), dies at 73
+patient_43 at (82,55), dies at 74
+patient_44 at (36,57), dies at 55
+patient_45 at (25,53), dies at 34
+patient_46 at (58,41), dies at 85
+patient_47 at (7,20), dies at 20
+patient_48 at (98,88), dies at 51
+patient_49 at (89,27), dies at 29
+
+2015-10-19 03:21:28,629 [main] INFO  jsprit.core.problem.VehicleRoutingProblem - setup problem: [fleetSize=INFINITE][#jobs=50][#vehicles=22][#vehicleTypes=1][transportCost=ManhattanCostsWithLoadUnloadTime@6a1aab78][activityCosts=jsprit.core.problem.cost.WaitingTimeCosts@462d5aee]
+2015-10-19 03:21:28,696 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - algorithm starts: [maxIterations=300]
+2015-10-19 03:21:28,698 [main] INFO  jsprit.core.algorithm.InsertionInitialSolutionFactory - create initial solution
+2015-10-19 03:21:28,868 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - iterations start
+2015-10-19 03:21:28,909 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 1
+2015-10-19 03:21:28,941 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 2
+2015-10-19 03:21:29,006 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 4
+2015-10-19 03:21:29,092 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 8
+2015-10-19 03:21:29,228 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 16
+2015-10-19 03:21:29,395 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 32
+2015-10-19 03:21:29,683 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 64
+2015-10-19 03:21:30,344 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 128
+2015-10-19 03:21:31,307 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 256
+2015-10-19 03:21:31,506 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - iterations end at 300 iterations
+2015-10-19 03:21:31,507 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - took 2.811 seconds
++--------------------------+
+| problem                  |
++---------------+----------+
+| indicator     | value    |
++---------------+----------+
+| noJobs        | 50       | 
+| noServices    | 0        | 
+| noShipments   | 50       | 
+| fleetsize     | INFINITE | 
++--------------------------+
++----------------------------------------------------------+
+| solution                                                 |
++---------------+------------------------------------------+
+| indicator     | value                                    |
++---------------+------------------------------------------+
+| costs         | 5348.0                                   | 
+| noVehicles    | 22                                       | 
+| unassgndJobs  | 14                                       | 
++----------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------+
+| detailed solution                                                                                                              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| route   | vehicle              | activity              | job             | arrTime         | endTime         | costs           |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 1       | ambulance_8          | start                 | -               | undef           | 0               | 0               |
+| 1       | ambulance_8          | pickupShipment        | patient_1_29    | 8               | 8               | 7               |
+| 1       | ambulance_8          | deliverShipment       | patient_1_29    | 16              | 16              | 14              |
+| 1       | ambulance_8          | end                   | -               | 17              | undef           | 14              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 2       | ambulance_6          | start                 | -               | undef           | 0               | 0               |
+| 2       | ambulance_6          | pickupShipment        | patient_12_53   | 25              | 25              | 24              |
+| 2       | ambulance_6          | pickupShipment        | patient_14_95   | 49              | 49              | 47              |
+| 2       | ambulance_6          | deliverShipment       | patient_12_53   | 51              | 51              | 48              |
+| 2       | ambulance_6          | deliverShipment       | patient_14_95   | 52              | 52              | 48              |
+| 2       | ambulance_6          | end                   | -               | 53              | undef           | 48              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 3       | ambulance_6          | start                 | -               | undef           | 0               | 0               |
+| 3       | ambulance_6          | pickupShipment        | patient_22_80   | 7               | 7               | 6               |
+| 3       | ambulance_6          | pickupShipment        | patient_6_58    | 25              | 25              | 23              |
+| 3       | ambulance_6          | deliverShipment       | patient_22_80   | 49              | 49              | 46              |
+| 3       | ambulance_6          | deliverShipment       | patient_6_58    | 50              | 50              | 46              |
+| 3       | ambulance_6          | end                   | -               | 51              | undef           | 46              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 4       | ambulance_0          | start                 | -               | undef           | 0               | 0               |
+| 4       | ambulance_0          | pickupShipment        | patient_31_76   | 16              | 16              | 15              |
+| 4       | ambulance_0          | pickupShipment        | patient_48_51   | 23              | 23              | 21              |
+| 4       | ambulance_0          | deliverShipment       | patient_31_76   | 43              | 43              | 40              |
+| 4       | ambulance_0          | deliverShipment       | patient_48_51   | 44              | 44              | 40              |
+| 4       | ambulance_0          | end                   | -               | 45              | undef           | 40              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 5       | ambulance_14         | start                 | -               | undef           | 0               | 0               |
+| 5       | ambulance_14         | pickupShipment        | patient_19_112  | 28              | 28              | 27              |
+| 5       | ambulance_14         | pickupShipment        | patient_46_85   | 42              | 42              | 40              |
+| 5       | ambulance_14         | deliverShipment       | patient_19_112  | 75              | 75              | 72              |
+| 5       | ambulance_14         | deliverShipment       | patient_46_85   | 76              | 76              | 72              |
+| 5       | ambulance_14         | end                   | -               | 77              | undef           | 72              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 6       | ambulance_14         | start                 | -               | undef           | 0               | 0               |
+| 6       | ambulance_14         | pickupShipment        | patient_18_47   | 13              | 13              | 12              |
+| 6       | ambulance_14         | deliverShipment       | patient_18_47   | 26              | 26              | 24              |
+| 6       | ambulance_14         | end                   | -               | 27              | undef           | 24              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 7       | ambulance_8          | start                 | -               | undef           | 0               | 0               |
+| 7       | ambulance_8          | pickupShipment        | patient_41_67   | 25              | 25              | 24              |
+| 7       | ambulance_8          | deliverShipment       | patient_41_67   | 50              | 50              | 48              |
+| 7       | ambulance_8          | end                   | -               | 51              | undef           | 48              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 8       | ambulance_14         | start                 | -               | undef           | 0               | 0               |
+| 8       | ambulance_14         | pickupShipment        | patient_9_108   | 27              | 27              | 26              |
+| 8       | ambulance_14         | pickupShipment        | patient_40_60   | 34              | 34              | 32              |
+| 8       | ambulance_14         | deliverShipment       | patient_9_108   | 59              | 59              | 56              |
+| 8       | ambulance_14         | deliverShipment       | patient_40_60   | 60              | 60              | 56              |
+| 8       | ambulance_14         | end                   | -               | 61              | undef           | 56              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 9       | ambulance_6          | start                 | -               | undef           | 0               | 0               |
+| 9       | ambulance_6          | pickupShipment        | patient_33_56   | 24              | 24              | 23              |
+| 9       | ambulance_6          | deliverShipment       | patient_33_56   | 48              | 48              | 46              |
+| 9       | ambulance_6          | end                   | -               | 49              | undef           | 46              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 10      | ambulance_6          | start                 | -               | undef           | 0               | 0               |
+| 10      | ambulance_6          | pickupShipment        | patient_15_50   | 24              | 24              | 23              |
+| 10      | ambulance_6          | deliverShipment       | patient_15_50   | 48              | 48              | 46              |
+| 10      | ambulance_6          | end                   | -               | 49              | undef           | 46              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 11      | ambulance_19         | start                 | -               | undef           | 0               | 0               |
+| 11      | ambulance_19         | pickupShipment        | patient_39_96   | 11              | 11              | 10              |
+| 11      | ambulance_19         | pickupShipment        | patient_11_72   | 23              | 23              | 21              |
+| 11      | ambulance_19         | pickupShipment        | patient_16_53   | 30              | 30              | 27              |
+| 11      | ambulance_19         | deliverShipment       | patient_39_96   | 48              | 48              | 44              |
+| 11      | ambulance_19         | deliverShipment       | patient_11_72   | 49              | 49              | 44              |
+| 11      | ambulance_19         | deliverShipment       | patient_16_53   | 50              | 50              | 44              |
+| 11      | ambulance_19         | end                   | -               | 51              | undef           | 44              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 12      | ambulance_0          | start                 | -               | undef           | 0               | 0               |
+| 12      | ambulance_0          | pickupShipment        | patient_36_106  | 24              | 24              | 23              |
+| 12      | ambulance_0          | pickupShipment        | patient_34_99   | 67              | 67              | 65              |
+| 12      | ambulance_0          | deliverShipment       | patient_36_106  | 95              | 95              | 92              |
+| 12      | ambulance_0          | deliverShipment       | patient_34_99   | 96              | 96              | 92              |
+| 12      | ambulance_0          | end                   | -               | 97              | undef           | 92              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 13      | ambulance_8          | start                 | -               | undef           | 0               | 0               |
+| 13      | ambulance_8          | pickupShipment        | patient_17_71   | 29              | 29              | 28              |
+| 13      | ambulance_8          | pickupShipment        | patient_3_78    | 39              | 39              | 37              |
+| 13      | ambulance_8          | pickupShipment        | patient_2_102   | 55              | 55              | 52              |
+| 13      | ambulance_8          | deliverShipment       | patient_2_102   | 66              | 66              | 62              |
+| 13      | ambulance_8          | deliverShipment       | patient_3_78    | 67              | 67              | 62              |
+| 13      | ambulance_8          | deliverShipment       | patient_17_71   | 68              | 68              | 62              |
+| 13      | ambulance_8          | end                   | -               | 69              | undef           | 62              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 14      | ambulance_8          | start                 | -               | undef           | 0               | 0               |
+| 14      | ambulance_8          | pickupShipment        | patient_42_73   | 34              | 34              | 33              |
+| 14      | ambulance_8          | deliverShipment       | patient_42_73   | 68              | 68              | 66              |
+| 14      | ambulance_8          | end                   | -               | 69              | undef           | 66              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 15      | ambulance_19         | start                 | -               | undef           | 0               | 0               |
+| 15      | ambulance_19         | pickupShipment        | patient_23_87   | 19              | 19              | 18              |
+| 15      | ambulance_19         | pickupShipment        | patient_10_80   | 33              | 33              | 31              |
+| 15      | ambulance_19         | pickupShipment        | patient_5_74    | 46              | 46              | 43              |
+| 15      | ambulance_19         | deliverShipment       | patient_5_74    | 66              | 66              | 62              |
+| 15      | ambulance_19         | deliverShipment       | patient_23_87   | 67              | 67              | 62              |
+| 15      | ambulance_19         | deliverShipment       | patient_10_80   | 68              | 68              | 62              |
+| 15      | ambulance_19         | end                   | -               | 69              | undef           | 62              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 16      | ambulance_6          | start                 | -               | undef           | 0               | 0               |
+| 16      | ambulance_6          | pickupShipment        | patient_8_58    | 27              | 27              | 26              |
+| 16      | ambulance_6          | deliverShipment       | patient_8_58    | 54              | 54              | 52              |
+| 16      | ambulance_6          | end                   | -               | 55              | undef           | 52              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 17      | ambulance_19         | start                 | -               | undef           | 0               | 0               |
+| 17      | ambulance_19         | pickupShipment        | patient_30_116  | 25              | 25              | 24              |
+| 17      | ambulance_19         | pickupShipment        | patient_4_95    | 45              | 45              | 43              |
+| 17      | ambulance_19         | deliverShipment       | patient_30_116  | 65              | 65              | 62              |
+| 17      | ambulance_19         | deliverShipment       | patient_4_95    | 66              | 66              | 62              |
+| 17      | ambulance_19         | end                   | -               | 67              | undef           | 62              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 18      | ambulance_0          | start                 | -               | undef           | 0               | 0               |
+| 18      | ambulance_0          | pickupShipment        | patient_20_101  | 31              | 31              | 30              |
+| 18      | ambulance_0          | pickupShipment        | patient_43_74   | 42              | 42              | 40              |
+| 18      | ambulance_0          | deliverShipment       | patient_20_101  | 73              | 73              | 70              |
+| 18      | ambulance_0          | deliverShipment       | patient_43_74   | 74              | 74              | 70              |
+| 18      | ambulance_0          | end                   | -               | 75              | undef           | 70              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 19      | ambulance_0          | start                 | -               | undef           | 0               | 0               |
+| 19      | ambulance_0          | pickupShipment        | patient_24_56   | 19              | 19              | 18              |
+| 19      | ambulance_0          | deliverShipment       | patient_24_56   | 38              | 38              | 36              |
+| 19      | ambulance_0          | end                   | -               | 39              | undef           | 36              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 20      | ambulance_8          | start                 | -               | undef           | 0               | 0               |
+| 20      | ambulance_8          | pickupShipment        | patient_38_69   | 33              | 33              | 32              |
+| 20      | ambulance_8          | deliverShipment       | patient_38_69   | 66              | 66              | 64              |
+| 20      | ambulance_8          | end                   | -               | 67              | undef           | 64              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 21      | ambulance_6          | start                 | -               | undef           | 0               | 0               |
+| 21      | ambulance_6          | pickupShipment        | patient_35_102  | 31              | 31              | 30              |
+| 21      | ambulance_6          | deliverShipment       | patient_35_102  | 62              | 62              | 60              |
+| 21      | ambulance_6          | end                   | -               | 63              | undef           | 60              |
++---------+----------------------+-----------------------+-----------------+-----------------+-----------------+-----------------+
+| 22      | ambulance_8          | start                 | -               | undef           | 0               | 0               |
+| 22      | ambulance_8          | pickupShipment        | patient_37_87   | 20              | 20              | 19              |
+| 22      | ambulance_8          | deliverShipment       | patient_37_87   | 40              | 40              | 38              |
+| 22      | ambulance_8          | end                   | -               | 41              | undef           | 38              |
++--------------------------------------------------------------------------------------------------------------------------------+
++----------------+
+| unassignedJobs |
++----------------+
+| patient_0_21   |
+| patient_25_27  |
+| patient_27_39  |
+| patient_28_59  |
+| patient_21_24  |
+| patient_45_34  |
+| patient_44_55  |
+| patient_49_29  |
+| patient_29_37  |
+| patient_26_25  |
+| patient_32_37  |
+| patient_47_20  |
+| patient_7_52   |
+| patient_13_58  |
++----------------+
+Hospital:0|91,76,3|0, 1, 2
+Hospital:1|19,83,5|3, 4, 5, 6, 7
+Hospital:2|19,28,6|8, 9, 10, 11, 12, 13
+Hospital:3|56,71,3|14, 15, 16
+Hospital:4|72,19,5|17, 18, 19, 20, 21
+
+Ambulance:8|19,28|1,17,23,29|19,28
+Ambulance:6|19,83|12,1,89,53;14,18,83,95|19,83
+Ambulance:6|19,83|22,22,86,80;6,25,100,58|19,83
+Ambulance:0|91,76|31,99,83,76;48,98,88,51|91,76
+Ambulance:14|56,71|19,62,50,112;46,58,41,85|56,71
+Ambulance:14|56,71|18,64,75,47|56,71
+Ambulance:8|19,28|41,29,42,67|19,28
+Ambulance:14|56,71|9,58,95,108;40,54,93,60|56,71
+Ambulance:6|19,83|33,24,65,56|19,83
+Ambulance:6|19,83|15,5,92,50|19,83
+Ambulance:19|72,19|39,74,11,96;11,75,1,72;16,71,3,53|72,19
+Ambulance:0|91,76|36,100,62,106;34,95,99,99|91,76
+Ambulance:8|19,28|17,18,1,71;3,15,7,78;2,17,20,102|19,28
+Ambulance:8|19,28|42,30,50,73|19,28
+Ambulance:19|72,19|23,58,15,87;10,56,26,80;5,64,30,74|72,19
+Ambulance:6|19,83|8,39,77,58|19,83
+Ambulance:19|72,19|30,86,9,116;4,84,26,95|72,19
+Ambulance:0|91,76|20,87,50,101;43,82,55,74|91,76
+Ambulance:0|91,76|24,82,67,56|91,76
+Ambulance:8|19,28|38,38,41,69|19,28
+Ambulance:6|19,83|35,3,69,102|19,83
+Ambulance:8|19,28|37,2,26,87|19,28

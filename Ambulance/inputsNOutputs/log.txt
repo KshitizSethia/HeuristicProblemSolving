@@ -1,0 +1,45 @@
+2015-10-20 16:45:41,052 [main] INFO  jsprit.core.problem.VehicleRoutingProblem - setup problem: [fleetSize=FINITE][#jobs=50][#vehicles=22][#vehicleTypes=1][transportCost=ManhattanCostsWithLoadUnloadTime@78e67e0a][activityCosts=jsprit.core.problem.cost.WaitingTimeCosts@bd8db5a]
+2015-10-20 16:45:41,244 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - algorithm starts: [maxIterations=500]
+2015-10-20 16:45:41,251 [main] INFO  jsprit.core.algorithm.InsertionInitialSolutionFactory - create initial solution
+2015-10-20 16:45:41,416 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - iterations start
+2015-10-20 16:45:41,431 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 1
+2015-10-20 16:45:41,448 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 2
+2015-10-20 16:45:41,473 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 4
+2015-10-20 16:45:41,560 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 8
+2015-10-20 16:45:41,629 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 16
+2015-10-20 16:45:41,834 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 32
+2015-10-20 16:45:42,023 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 64
+2015-10-20 16:45:42,634 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 128
+2015-10-20 16:45:43,287 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm$Counter - iterations 256
+2015-10-20 16:45:44,268 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - iterations end at 500 iterations
+2015-10-20 16:45:44,268 [main] INFO  jsprit.core.algorithm.VehicleRoutingAlgorithm - took 3.023 seconds
+Hospital:1|72,21,3|1, 2, 3
+Hospital:2|22,25,5|4, 5, 6, 7, 8
+Hospital:3|17,81,6|9, 10, 11, 12, 13, 14
+Hospital:4|55,75,3|15, 16, 17
+Hospital:5|91,76,5|18, 19, 20, 21, 22
+
+Ambulance:14|17,81|16,5,92,50|17,81
+Ambulance:14|17,81|36,3,69,102|17,81
+Ambulance:18|91,76|37,100,62,106;35,95,99,99|91,76
+Ambulance:19|91,76|49,98,88,51;32,99,83,76|91,76
+Ambulance:15|55,75|19,64,75,47|55,75
+Ambulance:15|55,75|20,62,50,112|55,75
+Ambulance:21|91,76|25,82,67,56|91,76
+Ambulance:2|72,21|12,75,1,72;17,71,3,53|72,21
+Ambulance:2|72,21|5,84,26,95|72,21
+Ambulance:12|17,81|15,18,83,95;7,25,100,58;23,22,86,80|17,81
+Ambulance:16|55,75|47,58,41,85;6,64,30,74|72,21
+Ambulance:3|72,21|24,58,15,87;31,86,9,116;40,74,11,96|72,21
+Ambulance:9|17,81|13,1,89,53|17,81
+Ambulance:6|22,25|2,17,23,29|22,25
+Ambulance:6|22,25|42,29,42,67|22,25
+Ambulance:20|91,76|44,82,55,74;21,87,50,101|91,76
+Ambulance:11|17,81|9,39,77,58|55,75
+Ambulance:8|22,25|39,38,41,69|22,25
+Ambulance:1|72,21|11,56,26,80|22,25
+Ambulance:4|22,25|3,17,20,102;4,15,7,78;18,18,1,71|22,25
+Ambulance:5|22,25|43,30,50,73|22,25
+Ambulance:17|55,75|10,58,95,108;41,54,93,60|55,75
+Ambulance:7|22,25|38,2,26,87|22,25
+Ambulance:10|17,81|34,24,65,56|17,81
